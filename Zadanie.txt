@@ -1,0 +1,34 @@
+pola nieobowiazkowe oznaczam 
+program w dowolny rozsadny sposób pobiera od uzytkownika:
+-hash
+-rodzaj hashu
+    -MD5, SHA1, inne
+-sól (lub informacje o jej braku)
+-nazwe pliku ze slownikiem, który moze ale nie musi byc w katalogu z programem
+-ilosc watków która ma zostac uzyta do lamania hasla (lub informacja, zeby program dobral ilosc automatycznie)
+
+program ma za zadanie spróbowac zlamac haslo (znalezc takie ze slownika, ktore pasuje do hashu (i soli))
+
+program ma wyswietlac dla uzytkownika informacje o postepie prac, np:
+123456 / 999999 [12.35%]
+oraz oferowac opcje przerwania dzialania programu w trakcie (obsluga systemowego ctrl-c konczaca poprawnie watki, zwalniajaca pamiec, uchwyty do otwartych plików oraz zamykajaca program)
+cos takiego
+kurwa
+wire
+i *
+REEEEEEEEEE
+pola nieobowiazkowe oznaczam *
+program w dowolny rozsadny sposób pobiera od uzytkownika:
+-hash
+-rodzaj hashu
+    -MD5, SHA1, inne*
+-sól (lub informacje o jej braku)
+-nazwe pliku ze slownikiem, który moze ale nie musi byc w katalogu z programem
+-ilosc watków która ma zostac uzyta do lamania hasla (lub informacja, zeby program dobral ilosc automatycznie)
+
+program ma za zadanie spróbowac zlamac haslo (znalezc takie ze slownika, ktore pasuje do hashu (i soli))
+
+program ma wyswietlac dla uzytkownika informacje o postepie prac, np:
+123456 / 999999 [12.35%]
+oraz oferowac opcje przerwania dzialania programu w trakcie (obsluga systemowego ctrl-c konczaca poprawnie watki, zwalniajaca pamiec, uchwyty do otwartych plików oraz zamykajaca program)
+tak mialo wygladac
