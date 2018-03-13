@@ -9,7 +9,7 @@ int main()
 	int i;
 	cout << "Hello !";
 	UserData a;
-	a.getDataFromConsol;
+	a.getDataFromConsol();
 
 	cin >> i;
 	return 0;
