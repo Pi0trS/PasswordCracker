@@ -1,5 +1,7 @@
 #include<iostream>
 #include<string>
+#include<fstream>
+#include<exception>
 
 #include "UserData.h"
 
@@ -37,5 +39,37 @@ void UserData::getDataFromConsol()
 	numberOfThredeSet(tmp);
 
 	std::cout << "You have entered the data." << std::endl;
-
 }
+
+std::string getInfo(std::string tmp_, int position)
+{
+	std::string tmp = tmp_;
+	tmp = tmp.substr(position);
+	if (tmp[0] == ' ')tmp = tmp.substr(1);
+	return tmp;
+}
+
+void UserData::getDataFromFile(std::string path)
+{
+	std::fstream file;
+	file.open(path, std::ios::in);
+	if (!file.good())throw std::exception("cannot be read");
+	std::string tmp;
+	
+	getline(file,tmp);
+	hashSet(getInfo(tmp, 5));
+
+	getline(file, tmp);
+	hashTypeSet(getInfo(tmp, 9));
+
+	getline(file, tmp);
+	saltSet(getInfo(tmp, 5));
+
+	getline(file, tmp);
+	dictionaryPathSet(getInfo(tmp, 16));
+
+	getline(file, tmp);
+	numberOfThredeSet(getInfo(tmp, 17));
+}
+
+

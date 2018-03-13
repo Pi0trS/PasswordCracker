@@ -1,0 +1,5 @@
+hash: test/hash 
+hashType: test/hashType
+salt: test/salt
+dictionary path: test/dictionary/path
+number of thread: test/number/of/thread 
