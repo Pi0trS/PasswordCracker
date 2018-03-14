@@ -18,7 +18,7 @@ int main()
 	//cout << tmp.substr(0);
 	//
 	//cout << "\n" << tmp << endl;
-
+	
 	int i;
 	cout << "Hello !";
 	UserData a;
