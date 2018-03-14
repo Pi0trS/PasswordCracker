@@ -7,36 +7,36 @@
 
 UserData::UserData()
 {
-	hash = hashType = salt = dictionaryPath = numberOfThread = "error";
+	hash = hashType = salt = dictionaryPath = numberOfThread = "";
 }
-void UserData::hashSet(std::string hash_){hash = hash_;}
-void UserData::hashTypeSet(std::string hashType_){hashType = hashType_;}
-void UserData::saltSet(std::string salt_){salt = salt_;}
-void UserData::dictionaryPathSet(std::string path){dictionaryPath = path;}
-void UserData::numberOfThredeSet(std::string number){numberOfThread = number;}
+void UserData::setHash(std::string hash_){hash = hash_;}
+void UserData::setHashType(std::string hashType_){hashType = hashType_;}
+void UserData::setSalt(std::string salt_){salt = salt_;}
+void UserData::setDictionaryPath(std::string path){dictionaryPath = path;}
+void UserData::setNumberOfThrede(std::string number){numberOfThread = number;}
 void UserData::getDataFromConsol()
 {
 	std::string tmp;
 	std::cout << "You have chosen the imput from the console."<<std::endl;
 	std::cout << "Please enter the hash" << std::endl;
 	std::cin >> tmp;
-	hashSet(tmp);
+	setHash(tmp);
 
 	std::cout << "Please enter the hash type : MD5, SHA1." << std::endl;
 	std::cin >> tmp;
-	hashSet(tmp);
+	setHashType(tmp);
 
 	std::cout << "Please enter salt or, if there is no salt, enter: none." << std::endl;
 	std::cin >> tmp;
-	saltSet(tmp);
+	setSalt(tmp);
 
 	std::cout << "Please enter the path to the dictionary." << std::endl;
 	std::cin >> tmp;
-	dictionaryPathSet(tmp);
+	setDictionaryPath(tmp);
 
 	std::cout << "Please enter the number of threads or, enter: auto." << std::endl;
 	std::cin >> tmp;
-	numberOfThredeSet(tmp);
+	setNumberOfThrede(tmp);
 
 	std::cout << "You have entered the data." << std::endl;
 }
@@ -57,19 +57,19 @@ void UserData::getDataFromFile(std::string path)
 	std::string tmp;
 	
 	getline(file,tmp);
-	hashSet(getInfo(tmp, 5));
+	setHash(getInfo(tmp, 5));
 
 	getline(file, tmp);
-	hashTypeSet(getInfo(tmp, 9));
+	setHashType(getInfo(tmp, 9));
 
 	getline(file, tmp);
-	saltSet(getInfo(tmp, 5));
+	setSalt(getInfo(tmp, 5));
 
 	getline(file, tmp);
-	dictionaryPathSet(getInfo(tmp, 16));
+	setDictionaryPath(getInfo(tmp, 16));
 
 	getline(file, tmp);
-	numberOfThredeSet(getInfo(tmp, 17));
+	setNumberOfThrede(getInfo(tmp, 17));
 }
 
 

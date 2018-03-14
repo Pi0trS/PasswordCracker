@@ -4,11 +4,11 @@ class UserData
 {
 public:
 	UserData();
-	void hashSet(std::string hash_);
-	void hashTypeSet(std::string hsahType_);
-	void saltSet(std::string salt_);
-	void dictionaryPathSet(std::string path);
-	void numberOfThredeSet(std::string number);
+	void setHash(std::string hash_);
+	void setHashType(std::string hsahType_);
+	void setSalt(std::string salt_);
+	void setDictionaryPath(std::string path);
+	void setNumberOfThrede(std::string number);
 	void getDataFromConsol();
 	void getDataFromFile(std:: string path);
 	//std::string getInfo(std::string tmp_, int position);
