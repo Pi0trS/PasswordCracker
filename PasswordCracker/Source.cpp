@@ -1,9 +1,26 @@
 #include<iostream>
 #include<string>
 #include<fstream>
+#include <process.h> 
+#include <windows.h>
 
 #include"UserData.h"
+#include "md5.h"
+#include"sha1.h"
 using namespace std;
+
+unsigned int g_Counter = 0;
+void __cdecl ThreadProc(void * Args)
+{
+	while (g_Counter < 1000) 
+	{
+		Sleep(500);
+		cout << g_Counter;
+		g_Counter++;
+	}
+
+	_endthread();
+}
 
 int main()
 {
@@ -18,12 +35,23 @@ int main()
 	//cout << tmp.substr(0);
 	//
 	//cout << "\n" << tmp << endl;
-	
-	int i;
-	cout << "Hello !";
-	UserData a;
-	//a.getDataFromConsol();
-	a.getDataFromFile(s);
-	cin >> i;
+
+	//HANDLE hThread = (HANDLE)_beginthread(ThreadProc, 0, NULL);
+	//WaitForSingleObject(hThread, INFINITE);
+
+	//char buffer[1024];
+	//sprintf(buffer, "g_Counter: %d\n", g_Counter);
+	//cout << g_Counter;
+	//OutputDebugString(buffer);
+	cout << md5("qweraaa")<<endl;
+	UserData u;
+	u.getDataFromFile(s);
+	s = u.startCracking();
+	cout << s;
+
+
+
+
+	cin >> s;
 	return 0;
 }

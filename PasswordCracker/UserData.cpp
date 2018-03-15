@@ -4,10 +4,20 @@
 #include<exception>
 
 #include "UserData.h"
+#include "md5.h"
+#include "sha1.h"
 
 UserData::UserData()
 {
 	hash = hashType = salt = dictionaryPath = numberOfThread = "";
+}
+UserData::UserData(UserData & a)
+{
+	hash = a.hash;
+	hashType = a.hashType;
+	salt = a.salt;
+	dictionaryPath = a.dictionaryPath;
+	numberOfThread = a.dictionaryPath;
 }
 void UserData::setHash(std::string hash_){hash = hash_;}
 void UserData::setHashType(std::string hashType_){hashType = hashType_;}
@@ -41,7 +51,7 @@ void UserData::getDataFromConsol()
 	std::cout << "You have entered the data." << std::endl;
 }
 
-std::string getInfo(std::string tmp_, int position)
+std::string UserData::getInfo(std::string tmp_, int position)
 {
 	std::string tmp = tmp_;
 	tmp = tmp.substr(position);
@@ -70,6 +80,48 @@ void UserData::getDataFromFile(std::string path)
 
 	getline(file, tmp);
 	setNumberOfThrede(getInfo(tmp, 17));
+
+	file.close();
 }
 
+std::string UserData::startCracking()
+{
+	std::fstream file;
+	std::string tmp,help;
+	file.open(dictionaryPath, std::ios::in);
+	if (!file.good())throw std::exception("cannot be read");
 
+	while (true)
+	{
+		getline(file, tmp);
+		std::cout << tmp << std::endl;
+
+		if (hashType == "MD5")
+		{
+			if (hash == md5((salt == "none" ? tmp : tmp + salt)))
+			{
+				file.close();
+				return tmp;
+			}
+		}
+		else if (hashType == "SHA1")
+		{
+			if (hash == md5((salt == "none" ? tmp : tmp + salt)))
+			{
+				file.close();
+				return tmp;
+			}
+		}
+		else
+		{
+			file.close();
+			throw std::exception("wrong hash type");
+		}
+
+		if (tmp == "")
+		{
+			file.close();
+			return "pasword no found";
+		}
+	}
+}
