@@ -14,7 +14,7 @@ void __cdecl ThreadProc(void * Args)
 {
 	while (g_Counter < 1000) 
 	{
-		Sleep(500);
+		Sleep(50);
 		cout << g_Counter;
 		g_Counter++;
 	}
@@ -36,18 +36,18 @@ int main()
 	//
 	//cout << "\n" << tmp << endl;
 
-	//HANDLE hThread = (HANDLE)_beginthread(ThreadProc, 0, NULL);
-	//WaitForSingleObject(hThread, INFINITE);
+	HANDLE hThread = (HANDLE)_beginthread(ThreadProc, 0, NULL);
+	HANDLE hThread1 = (HANDLE)_beginthread(ThreadProc, 0, NULL);
+	HANDLE hThread2 = (HANDLE)_beginthread(ThreadProc, 0, NULL);
 
-	//char buffer[1024];
-	//sprintf(buffer, "g_Counter: %d\n", g_Counter);
-	//cout << g_Counter;
-	//OutputDebugString(buffer);
-	cout << md5("qweraaa")<<endl;
-	UserData u;
-	u.getDataFromFile(s);
-	s = u.startCracking();
-	cout << s;
+	WaitForSingleObject(hThread, INFINITE);
+
+
+	//cout << md5("qweraaa")<<endl;
+	//UserData u;
+	//u.getDataFromFile(s);
+	//s = u.startCracking();
+	//cout << s;
 
 
 
