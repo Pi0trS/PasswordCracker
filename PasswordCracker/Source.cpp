@@ -36,11 +36,7 @@ int main()
 	//
 	//cout << "\n" << tmp << endl;
 
-	HANDLE hThread = (HANDLE)_beginthread(ThreadProc, 0, NULL);
-	HANDLE hThread1 = (HANDLE)_beginthread(ThreadProc, 0, NULL);
-	HANDLE hThread2 = (HANDLE)_beginthread(ThreadProc, 0, NULL);
 
-	WaitForSingleObject(hThread, INFINITE);
 
 
 	//cout << md5("qweraaa")<<endl;
