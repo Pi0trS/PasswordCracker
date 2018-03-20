@@ -33,6 +33,7 @@ private:
 	std::queue <std::string> passQueue;
 	std::mutex lock;
 	bool flagStop = false;
+	bool flagEndFile = false;
 	void fillQueue();
 	void cracking();
 

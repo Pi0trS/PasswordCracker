@@ -39,8 +39,8 @@ void Breaker::fillQueue()
 			getline(file, tmp);
 			if (tmp == "")
 			{
-				flagStop = true;
 				lock.unlock();
+				flagEndFile = true;
 				break;
 			}
 			passQueue.push(tmp);
@@ -53,7 +53,7 @@ void Breaker::fillQueue()
 void Breaker::cracking()
 {
 	std::string tmp;
-	while (!passQueue.empty() || !flagStop)
+	while ((!passQueue.empty() && !flagEndFile) || !flagStop)
 	{
 		lock.lock();
 		if (!passQueue.empty())
@@ -84,11 +84,6 @@ void Breaker::cracking()
 		{
 			throw std::exception("wrong hash type");
 		}
-		if (tmp == "")
-		{
-			password = "pasword no found";
-			flagStop = true;
-		}
 	}
 
 }
@@ -112,7 +107,6 @@ void Breaker::startCracking()
 	for (int i = 0; i < std::stoi(data->getNumberOfThrede()); i++)
 	{
 		breakingThread[i].join();
-
 	}
 	
 
