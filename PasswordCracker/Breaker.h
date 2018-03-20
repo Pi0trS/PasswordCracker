@@ -8,7 +8,7 @@
 #include<vector>
 
 #include<mutex>
-#include<queue>
+#include<queue>;
 
 #include "md5.h"
 #include "sha1.h"

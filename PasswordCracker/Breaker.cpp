@@ -26,64 +26,76 @@ Breaker::Breaker(UserData data_)
 
 void Breaker::fillQueue()
 {
+	long long counter = 0;
+	long long maxInQueue = 0;
+
 	std::fstream file;
 	std::string tmp;
 	file.open(data->getDictionaryPath(), std::ios::in);
 	if (!file.good())throw std::exception("cannot be read");
-	while (true)
+	while (!flagStop)
 	{
 
-		if (passQueue.size() < 1000)
+		//if (passQueue.size() < 1000)
 		{
-			lock.lock();
+			maxInQueue = __max(passQueue.size(), maxInQueue);
+
+			if (counter++ % 100000 == 0)
+				std::cout << "line: " << counter << std::endl;
+			
 			getline(file, tmp);
 			if (tmp == "")
 			{
-				lock.unlock();
 				flagEndFile = true;
 				break;
 			}
+
+			lock.lock();
 			passQueue.push(tmp);
 			lock.unlock();
 		}
 
 	}
+
+	file.close();
+
+	std::cout << "miq: " << maxInQueue << std::endl;
 }
 
 void Breaker::cracking()
 {
 	std::string tmp;
-	while ((!passQueue.empty() && !flagEndFile) || !flagStop)
+	std::string hash;
+
+	while (true)
 	{
 		lock.lock();
 		if (!passQueue.empty())
 		{
-			std::cout <<(tmp = passQueue.front()) << std::endl;
+			//std::cout <<() << std::endl;
+			tmp = passQueue.front();
 			passQueue.pop();
 
 		}
 		lock.unlock();
-		
-		if (data->getHashType() == "MD5")
+
+		if (tmp == "URYUNG")
 		{
-			if (data->getHash() == md5((data->getSalt() == "none" ? tmp : tmp + data->getSalt())))
-			{
-				password = tmp;
-				flagStop = true;
-			}
+			int a = (int)tmp[0];
+			int b = a + (int)tmp[2];
 		}
-		else if (data->getHashType() == "SHA1")
+
+		hash = md5((data->getSalt() == "none" ? tmp : tmp + data->getSalt()));
+		if (data->getHash() == hash)
 		{
-			if (data->getHash() == md5((data->getSalt() == "none" ? tmp : tmp + data->getSalt())))
-			{
-				password = tmp;
-				flagStop = true;
-			}
+			password = tmp;
+			flagStop = true;
 		}
-		else
-		{
-			throw std::exception("wrong hash type");
-		}
+
+		if (passQueue.empty() && flagEndFile)
+			break;
+		if (flagStop)
+			break;
 	}
 
 }
@@ -109,5 +121,6 @@ void Breaker::startCracking()
 		breakingThread[i].join();
 	}
 	
+	std::cout << "znalezione haslo: " << password << std::endl;
 
 }

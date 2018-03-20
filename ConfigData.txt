@@ -1,5 +1,5 @@
-hash: 1414ae032195d30976e27ebcb5d1f642
+hash: 30dd1c279391b85f3ce127c72868ceb2
 hashType: MD5
-salt: aaa
-dictionary path: ../dictionary.txt
-number of thread: 2
+salt: none
+dictionary path: C:\Users\wjtk4444\Desktop\abcde\10m\segment10m_realhuman_phill_af
+number of thread: 8

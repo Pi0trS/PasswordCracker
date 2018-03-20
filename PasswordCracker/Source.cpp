@@ -45,6 +45,6 @@ int main()
 	Breaker a(u);
 	a.startCracking();
 
-	cin >> s;
+	getchar();
 	return 0;
 }
