@@ -17,7 +17,7 @@ UserData::UserData(UserData & a)
 	hashType = a.hashType;
 	salt = a.salt;
 	dictionaryPath = a.dictionaryPath;
-	numberOfThread = a.dictionaryPath;
+	numberOfThread = a.numberOfThread;
 }
 void UserData::setHash(std::string hash_){hash = hash_;}
 std::string UserData::getHash() { return hash; }

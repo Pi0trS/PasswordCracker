@@ -1,5 +1,6 @@
 /PasswordCracker/.vs
 /PasswordCracker/Debug/
 /PasswordCracker/Release/
+/PasswordCracker/x64/
 *.db
 *.opendb

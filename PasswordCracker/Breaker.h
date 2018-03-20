@@ -25,7 +25,7 @@ public:
 	int counter;
 private:
 	UserData *data;
-	std::string password,tmp;
+	std::string password;
 
 	//std::vector <std::thread> breakingThread;
 	std::vector <std::thread> breakingThread;

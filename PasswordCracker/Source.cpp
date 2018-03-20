@@ -25,7 +25,7 @@ void __cdecl ThreadProc(void * Args)
 
 int main()
 {
-	string s = "C:\\Users\\Piotr\\Documents\\Visual Studio 2015\\Projects\\PasswordCracker\\ConfigData.txt";
+	string s = "..\\ConfigData.txt";
 
 	//std::fstream file;
 	//file.open(s, std::ios::in);
@@ -41,7 +41,7 @@ int main()
 	u.getDataFromFile(s);
 	//s = u.startCracking();
 	//cout << s;
-
+	
 	Breaker a(u);
 	a.startCracking();
 

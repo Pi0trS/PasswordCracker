@@ -21,7 +21,6 @@
 Breaker::Breaker(UserData data_)
 {
 	data  = new UserData(data_);
-	
 }
 
 
@@ -40,7 +39,8 @@ void Breaker::fillQueue()
 			getline(file, tmp);
 			if (tmp == "")
 			{
-				flagStop = true; 
+				flagStop = true;
+				lock.unlock();
 				break;
 			}
 			passQueue.push(tmp);
@@ -52,13 +52,18 @@ void Breaker::fillQueue()
 
 void Breaker::cracking()
 {
+	std::string tmp;
 	while (!passQueue.empty() || !flagStop)
 	{
 		lock.lock();
+		if (!passQueue.empty())
+		{
+			std::cout <<(tmp = passQueue.front()) << std::endl;
+			passQueue.pop();
 
-		std::cout << passQueue.front() << std::endl;
+		}
 		lock.unlock();
-
+		
 		if (data->getHashType() == "MD5")
 		{
 			if (data->getHash() == md5((data->getSalt() == "none" ? tmp : tmp + data->getSalt())))
@@ -79,23 +84,36 @@ void Breaker::cracking()
 		{
 			throw std::exception("wrong hash type");
 		}
-		passQueue.pop();
 		if (tmp == "")
 		{
 			password = "pasword no found";
 			flagStop = true;
 		}
 	}
+
 }
 void Breaker::startCracking()
 {
-
 	//std::thread queueFiller(&Breaker::fillQueue,this);
 	//std::thread thread1(&Breaker::cracking, this);
 	//std::thread thread2(&Breaker::cracking);
 	//std::thread thread3(&Breaker::cracking);
-	std::thread test(&Breaker::fillQueue, this);
 
-	std::thread thread4(&Breaker::cracking,this);
+
+
+	std::thread test(&Breaker::fillQueue, this);
+	for (int i = 0; i < std::stoi(data->getNumberOfThrede()); i++)
+	{
+		breakingThread.push_back(std::thread(&Breaker::cracking,this));
+	}
+	//std::thread thread4(&Breaker::cracking,this);
+
+	test.join();
+	for (int i = 0; i < std::stoi(data->getNumberOfThrede()); i++)
+	{
+		breakingThread[i].join();
+
+	}
+	
 
 }
