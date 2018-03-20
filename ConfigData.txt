@@ -1,5 +1,5 @@
 hash: 1414ae032195d30976e27ebcb5d1f642
 hashType: MD5
 salt: aaa
-dictionary path: C:\\Users\\Piotr\\Documents\\Visual Studio 2015\\Projects\\PasswordCracker\\dictionary.txt
+dictionary path: C:\Users\Piotr\Documents\Visual Studio 2015\Projects\PasswordCracker\dictionary.txt
 number of thread: test/number/of/thread 

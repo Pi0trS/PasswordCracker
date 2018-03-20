@@ -5,6 +5,7 @@
 #include <windows.h>
 
 #include"UserData.h"
+#include"Breaker.h"
 #include "md5.h"
 #include"sha1.h"
 using namespace std;
@@ -35,18 +36,14 @@ int main()
 	//cout << tmp.substr(0);
 	//
 	//cout << "\n" << tmp << endl;
-
-
-
-
 	//cout << md5("qweraaa")<<endl;
-	//UserData u;
-	//u.getDataFromFile(s);
+	UserData u;
+	u.getDataFromFile(s);
 	//s = u.startCracking();
 	//cout << s;
 
-
-
+	Breaker a(u);
+	a.startCracking();
 
 	cin >> s;
 	return 0;

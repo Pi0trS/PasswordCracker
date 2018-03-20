@@ -20,10 +20,15 @@ UserData::UserData(UserData & a)
 	numberOfThread = a.dictionaryPath;
 }
 void UserData::setHash(std::string hash_){hash = hash_;}
+std::string UserData::getHash() { return hash; }
 void UserData::setHashType(std::string hashType_){hashType = hashType_;}
+std::string UserData::getHashType(){return hashType;}
 void UserData::setSalt(std::string salt_){salt = salt_;}
+std::string UserData::getSalt(){return salt;}
 void UserData::setDictionaryPath(std::string path){dictionaryPath = path;}
+std::string UserData::getDictionaryPath(){return dictionaryPath;}
 void UserData::setNumberOfThrede(std::string number){numberOfThread = number;}
+std::string UserData::getNumberOfThrede(){return numberOfThread;}
 void UserData::getDataFromConsol()
 {
 	std::string tmp;
@@ -91,37 +96,5 @@ std::string UserData::startCracking()
 	file.open(dictionaryPath, std::ios::in);
 	if (!file.good())throw std::exception("cannot be read");
 
-	while (true)
-	{
-		getline(file, tmp);
-		std::cout << tmp << std::endl;
 
-		if (hashType == "MD5")
-		{
-			if (hash == md5((salt == "none" ? tmp : tmp + salt)))
-			{
-				file.close();
-				return tmp;
-			}
-		}
-		else if (hashType == "SHA1")
-		{
-			if (hash == md5((salt == "none" ? tmp : tmp + salt)))
-			{
-				file.close();
-				return tmp;
-			}
-		}
-		else
-		{
-			file.close();
-			throw std::exception("wrong hash type");
-		}
-
-		if (tmp == "")
-		{
-			file.close();
-			return "pasword no found";
-		}
-	}
 }
