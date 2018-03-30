@@ -36,12 +36,8 @@ void Breaker::fillQueue()
 	while (!flagStop)
 	{
 
-		//if (passQueue.size() < 1000)
+		if (passQueue.size() < 1000)
 		{
-			maxInQueue = __max(passQueue.size(), maxInQueue);
-
-			if (counter++ % 100000 == 0)
-				std::cout << "line: " << counter << std::endl;
 			
 			getline(file, tmp);
 			if (tmp == "")
@@ -58,8 +54,6 @@ void Breaker::fillQueue()
 	}
 
 	file.close();
-
-	std::cout << "miq: " << maxInQueue << std::endl;
 }
 
 void Breaker::cracking()
@@ -69,35 +63,30 @@ void Breaker::cracking()
 
 	while (true)
 	{
-		lock.lock();
-		if (!passQueue.empty())
+		if (!flagPause)
 		{
-			//std::cout <<() << std::endl;
-			tmp = passQueue.front();
-			passQueue.pop();
+			lock.lock();
+			if (!passQueue.empty())
+			{
+				//std::cout <<() << std::endl;
+				tmp = passQueue.front();
+				passQueue.pop();
+			}
+			lock.unlock();
+			std::cout << tmp << std::endl;
+			hash = md5((data->getSalt() == "none" ? tmp : tmp + data->getSalt()));
+			if (data->getHash() == hash)
+			{
+				password = tmp;
+				flagStop = true;
+			}
 
+			if (passQueue.empty() && flagEndFile)
+				break;
+			if (flagStop)
+				break;
 		}
-		lock.unlock();
-
-		if (tmp == "URYUNG")
-		{
-			int a = (int)tmp[0];
-			int b = a + (int)tmp[2];
-		}
-
-		hash = md5((data->getSalt() == "none" ? tmp : tmp + data->getSalt()));
-		if (data->getHash() == hash)
-		{
-			password = tmp;
-			flagStop = true;
-		}
-
-		if (passQueue.empty() && flagEndFile)
-			break;
-		if (flagStop)
-			break;
 	}
-
 }
 void Breaker::startCracking()
 {
@@ -106,9 +95,8 @@ void Breaker::startCracking()
 	//std::thread thread2(&Breaker::cracking);
 	//std::thread thread3(&Breaker::cracking);
 
-
-
 	std::thread test(&Breaker::fillQueue, this);
+	std::thread keyT(&Breaker::keyControl, this);
 	for (int i = 0; i < std::stoi(data->getNumberOfThrede()); i++)
 	{
 		breakingThread.push_back(std::thread(&Breaker::cracking,this));
@@ -116,11 +104,38 @@ void Breaker::startCracking()
 	//std::thread thread4(&Breaker::cracking,this);
 
 	test.join();
+	keyT.join();
 	for (int i = 0; i < std::stoi(data->getNumberOfThrede()); i++)
 	{
 		breakingThread[i].join();
 	}
 	
+	if(password != "")
 	std::cout << "znalezione haslo: " << password << std::endl;
+	else std::cout << "password not match" << std::endl;
+}
+void Breaker::keyControl()
+{
+	bool prevEscape = false, currEscape = false;
+	while (true)
+	{
+		if (GetAsyncKeyState(VK_ESCAPE))
+			currEscape = true;
+		else
+			currEscape = false;
+		if (currEscape != prevEscape)
+		{
+			if (currEscape)
+			{
+				flagPause ? flagPause = false : flagPause = true;
+			}
+			else
+			{
 
+			}
+			prevEscape = currEscape;
+		}
+		if (flagStop)
+			break;
+	}
 }
