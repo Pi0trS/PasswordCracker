@@ -120,7 +120,9 @@ void Breaker::keyControl()
 	while (true)
 	{
 		if (GetAsyncKeyState(VK_ESCAPE))
+		{
 			currEscape = true;
+		}
 		else
 			currEscape = false;
 		if (currEscape != prevEscape)
@@ -135,6 +137,13 @@ void Breaker::keyControl()
 			}
 			prevEscape = currEscape;
 		}
+		if (GetAsyncKeyState(0x51))
+		{
+			flagStop = true;
+		}
+
+
+
 		if (flagStop)
 			break;
 	}
