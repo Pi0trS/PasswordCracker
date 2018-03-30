@@ -86,6 +86,9 @@ void Breaker::cracking()
 			if (flagStop)
 				break;
 		}
+		if (flagStop)
+			break;
+
 	}
 }
 void Breaker::startCracking()
@@ -130,10 +133,6 @@ void Breaker::keyControl()
 			if (currEscape)
 			{
 				flagPause ? flagPause = false : flagPause = true;
-			}
-			else
-			{
-
 			}
 			prevEscape = currEscape;
 		}
