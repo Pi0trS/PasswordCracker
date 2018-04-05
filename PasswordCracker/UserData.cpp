@@ -68,6 +68,7 @@ void UserData::getDataFromFile(std::string path)
 {
 	std::fstream file;
 	file.open(path, std::ios::in);
+
 	if (!file.good())throw std::exception("cannot be read");
 	std::string tmp;
 	

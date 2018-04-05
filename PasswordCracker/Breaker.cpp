@@ -32,6 +32,14 @@ void Breaker::fillQueue()
 	std::fstream file;
 	std::string tmp;
 	file.open(data->getDictionaryPath(), std::ios::in);
+	
+
+
+	file.seekg(0,file.end);
+	int length = file.tellg();
+	file.seekg(0, file.beg);
+	std::cout<< length;
+
 	if (!file.good())throw std::exception("cannot be read");
 	while (!flagStop)
 	{
@@ -88,7 +96,6 @@ void Breaker::cracking()
 		}
 		if (flagStop)
 			break;
-
 	}
 }
 void Breaker::startCracking()
@@ -140,9 +147,6 @@ void Breaker::keyControl()
 		{
 			flagStop = true;
 		}
-
-
-
 		if (flagStop)
 			break;
 	}
