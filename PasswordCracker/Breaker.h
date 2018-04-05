@@ -14,15 +14,16 @@
 #include "sha1.h"
 #include "UserData.h"
 #include "Breaker.h"
+#include "ConfigReader.h"
 
 class Breaker
 {
 public:
-	Breaker(UserData data_);
+	Breaker(ConfigReader data_);
 	void startCracking();
 	int counter;
 private:
-	UserData *data;
+	ConfigReader *data;
 	std::string password;
 	//std::vector <std::thread> breakingThread;
 	std::vector <std::thread> breakingThread;

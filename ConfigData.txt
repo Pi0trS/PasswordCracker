@@ -1,5 +1,5 @@
 hash: 1e63f5c5e73df91f804a9ced5f4ba4af
 hashType: MD5
 salt: none
-dictionary path: segment100k_realhuman_phill_af_al.txt
-number of thread: 8
+dictionaryPath: segment100k_realhuman_phill_af_al.txt
+numberOfThreads: 8

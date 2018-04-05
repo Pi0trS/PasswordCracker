@@ -37,8 +37,8 @@ int main()
 	//
 	//cout << "\n" << tmp << endl;
 	//cout << md5("qweraaa")<<endl;
-	UserData u;
-	u.getDataFromFile(s);
+	ConfigReader u(s);
+	
 	//s = u.startCracking();
 	//cout << s;
 	

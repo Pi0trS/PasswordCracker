@@ -18,9 +18,9 @@
 #include "UserData.h"
 #include "Breaker.h"
 
-Breaker::Breaker(UserData data_)
+Breaker::Breaker(ConfigReader data_)
 {
-	data  = new UserData(data_);
+	data  = new ConfigReader(data_);
 }
 
 
@@ -81,7 +81,7 @@ void Breaker::cracking()
 				passQueue.pop();
 			}
 			lock.unlock();
-			std::cout << tmp << std::endl;
+			//std::cout << tmp << std::endl;
 			hash = md5((data->getSalt() == "none" ? tmp : tmp + data->getSalt()));
 			if (data->getHash() == hash)
 			{
@@ -107,7 +107,7 @@ void Breaker::startCracking()
 
 	std::thread test(&Breaker::fillQueue, this);
 	std::thread keyT(&Breaker::keyControl, this);
-	for (int i = 0; i < std::stoi(data->getNumberOfThrede()); i++)
+	for (int i = 0; i < data->getNumberOfThrede(); i++)
 	{
 		breakingThread.push_back(std::thread(&Breaker::cracking,this));
 	}
@@ -115,7 +115,7 @@ void Breaker::startCracking()
 
 	test.join();
 	keyT.join();
-	for (int i = 0; i < std::stoi(data->getNumberOfThrede()); i++)
+	for (int i = 0; i < data->getNumberOfThrede(); i++)
 	{
 		breakingThread[i].join();
 	}
